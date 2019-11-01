@@ -18,7 +18,7 @@ PrefixSumThread::PrefixSumThread(int Column, int Row)
 		<< '\0';
 }
 
------------------------------------------------------------ 
+//----------------------------------------------------------- 
 // FUNCTION  ThreadFunc                          
 //     this function is what each individual thread does
 //     it computes the prefix sum for an individual element                            
@@ -34,6 +34,8 @@ void PrefixSumThread::ThreadFunc()
 	int position = row - (int) pow(2, column-1);
      	char buf[300];
 
+	sprintf(buf, "        Thread %d Created\n        ..........\n", row);
+	write(1, buf, strlen(buf));
 	if(position < 0)
 	{
 		//if it is one of the initial elements, no calculations just copy

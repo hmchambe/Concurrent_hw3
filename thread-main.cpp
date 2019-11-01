@@ -12,7 +12,7 @@
 // Global Array
 int B[512][512];
 
------------------------------------------------------------ 
+//----------------------------------------------------------- 
 // FUNCTION  main                         
 //     The purpose of this function is to start the threads
 //     and print the proper information for the prefix sum                            
@@ -53,8 +53,11 @@ int main(int argc, char *argv[])
 	int k = (int) log2(size), stage; 
 	for(stage=1; stage<=k; stage++)
 	{
+		sprintf(buf,"Run %d:\n", stage);
+		write(1, buf, strlen(buf));
 		for(i=0; i<size; i++)
 		{
+
 			// start the sum thread
 			prefixsumthread[i] = new PrefixSumThread(stage, i); //call with specific row and column
 			prefixsumthread[i]->Begin();
@@ -66,12 +69,28 @@ int main(int argc, char *argv[])
 			prefixsumthread[i]->Join();
 
 		}
+		sprintf(buf, "Result after run %d:\n",stage);
+		write(1, buf, strlen(buf));
+	
+		for (i = 0; i < size; i++)
+		{
+			sprintf(buf, "   %d", B[stage][i]);
+			write(1, buf, strlen(buf));
+		}	  
+		sprintf(buf, "\n\n");
+		write(1, buf, strlen(buf));
 	} 
     
-	cout << "After prefixsum, the array is:" << endl;
+	sprintf(buf, "\nResult after run k:\n");
+	write(1, buf, strlen(buf));
+
 	for (i = 0; i < size; i++)
-	cout << B[k][i] << "   "; 
-	cout << endl;
+	{
+		sprintf(buf, "   %d", B[k][i]);
+		write(1, buf, strlen(buf));
+	}	  
+		sprintf(buf, "\n");
+		write(1, buf, strlen(buf));
 	Exit();
 							     
 	return 0;
