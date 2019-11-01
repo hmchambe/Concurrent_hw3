@@ -1,15 +1,33 @@
+// ----------------------------------------------------------- 
+// NAME : Hunter Chambers                   User ID: 81276171 
+// DUE DATE : 11/01/2019                                       
+// PROGRAM ASSIGNMENT 3                                        
+// FILE NAME : thread.cpp            
+// PROGRAM PURPOSE :                                           
+//    This program computes the prefix sum concurrently        
+// ----------------------------------------------------------- 
 #include  <iostream>
 #include "thread.h"
 
 PrefixSumThread::PrefixSumThread(int Column, int Row) 
           :column(Column), row(Row)
 {
-     ThreadName.seekp(0, ios::beg);
-     ThreadName << "Thread" 
-                << '(' << column << ':' << row << ')'
-                << '\0';
+	ThreadName.seekp(0, ios::beg);
+	ThreadName << "Thread" 
+		<< '(' << column << ':' << row << ')'
+		<< '\0';
 }
 
+----------------------------------------------------------- 
+// FUNCTION  ThreadFunc                          
+//     this function is what each individual thread does
+//     it computes the prefix sum for an individual element                            
+// PARAMETER USAGE :                                           
+// 	this function takes the column(stage) and row(element)
+// 	that needs to be modified
+// FUNCTION CALLED :                                           
+// 	[none]
+// ----------------------------------------------------------- 
 void PrefixSumThread::ThreadFunc()
 {
 	Thread::ThreadFunc();

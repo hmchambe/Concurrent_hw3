@@ -1,8 +1,26 @@
+// ----------------------------------------------------------- 
+// NAME : Hunter Chambers                   User ID: 81276171 
+// DUE DATE : 11/01/2019                                       
+// PROGRAM ASSIGNMENT 3                                        
+// FILE NAME : thread-main.cpp            
+// PROGRAM PURPOSE :                                           
+//    This program computes the prefix sum concurrently        
+// ----------------------------------------------------------- 
 #include  <iostream>
 #include "thread.h"
 
+// Global Array
 int B[512][512];
 
+----------------------------------------------------------- 
+// FUNCTION  main                         
+//     The purpose of this function is to start the threads
+//     and print the proper information for the prefix sum                            
+// PARAMETER USAGE :                                           
+// 	[none]
+// FUNCTION CALLED :                                           
+// 	[none]
+// ----------------------------------------------------------- 
 int main(int argc, char *argv[])
 {
 	int size, i;
@@ -37,9 +55,9 @@ int main(int argc, char *argv[])
 	{
 		for(i=0; i<size; i++)
 		{
-		    // start the sum thread
-		    prefixsumthread[i] = new PrefixSumThread(stage, i); //call with specific row and column
-		    prefixsumthread[i]->Begin();
+			// start the sum thread
+			prefixsumthread[i] = new PrefixSumThread(stage, i); //call with specific row and column
+			prefixsumthread[i]->Begin();
 		     
 		}
 		
@@ -50,11 +68,11 @@ int main(int argc, char *argv[])
 		}
 	} 
     
-    cout << "After prefixsum, the array is:" << endl;
-    for (i = 0; i < size; i++)
-    cout << B[k][i] << "   "; 
-    cout << endl;
-    Exit();
-                                                             
-    return 0;
+	cout << "After prefixsum, the array is:" << endl;
+	for (i = 0; i < size; i++)
+	cout << B[k][i] << "   "; 
+	cout << endl;
+	Exit();
+							     
+	return 0;
 } 
