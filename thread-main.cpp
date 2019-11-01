@@ -5,33 +5,54 @@ int B[512][512];
 
 int main(int argc, char *argv[])
 {
-     PrefixSumThread *prefixsumthread;
-     int size, i;
+	int size, i;
+	char buf[500];
 
-     cout << "Reading array size" << endl;
-     cin >> size;
+	scanf("%d", &size);
+	sprintf(buf, "Concurrent Prefix Sum Computation\n\nNumber of input data = %d\n", size);
+	write(1, buf, strlen(buf));
 
-     array = new int[size]; // create the array
+	// Making an array of threads
+	PrefixSumThread *prefixsumthread[size];
 
-     cout << "Reading in array " << endl;
-     for (i = 0; i < size; i++)
-          cin >> B[0][i]; 
+	// Reading array from stdin
+	for (i = 0; i < size; i++)
+	{
+		scanf("%d", &B[0][i]); 
+	}
 
-     cout << "Before sum, the array is:" << endl;
-     for (i = 0; i < size; i++)
-          cout << B[0][i] << "   ";
-     cout << endl;
+	sprintf(buf, "Input array:\n");
+	write(1, buf, strlen(buf));
 
-    // start the sum thread
-    prefixsumthread = new PrefixSumThread(); //call with specific row and column
-    prefixsumthread->Begin();
-     
-    // wait for the sum thread to finish
-    prefixsumthread->Join();
-     
-    cout << "After quicksort, the array is:" << endl;
-    for (i = 0; i < arraySize; i++)
-    cout << array[i] << "   "; 
+	for (i = 0; i < size; i++)
+	{
+		sprintf(buf, "   %d", B[0][i]);
+		write(1, buf, strlen(buf));
+	}	  
+	sprintf(buf, "\n");
+	write(1, buf, strlen(buf));
+
+	int k = (int) log2(size), stage; 
+	for(stage=1; stage<=k; stage++)
+	{
+		for(i=0; i<size; i++)
+		{
+		    // start the sum thread
+		    prefixsumthread[i] = new PrefixSumThread(stage, i); //call with specific row and column
+		    prefixsumthread[i]->Begin();
+		     
+		}
+		
+		for(i=0; i<size; i++)
+		{	//wait on threads to finish
+			prefixsumthread[i]->Join();
+
+		}
+	} 
+    
+    cout << "After prefixsum, the array is:" << endl;
+    for (i = 0; i < size; i++)
+    cout << B[k][i] << "   "; 
     cout << endl;
     Exit();
                                                              

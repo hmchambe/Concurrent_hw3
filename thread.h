@@ -4,7 +4,7 @@
 #include <cstring>
 #include "ThreadClass.h"
 
-extern int B[512][512]
+extern int B[512][512];
 
 class PrefixSumThread : public Thread
 {
