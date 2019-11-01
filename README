@@ -1,0 +1,29 @@
+// ----------------------------------------------------------- 
+// NAME : Hunter Chambers                   User ID: 81276171 
+// DUE DATE : 11/01/2019                                       
+// PROGRAM ASSIGNMENT 3                                        
+// FILE NAME : README            
+// PROGRAM PURPOSE :                                           
+//    This program computes the prefix sum concurrently        
+// ----------------------------------------------------------- 
+
+1. There are no race conditions, because although there is a global array that is accessed by every thread,
+	but they all only write to one element in that array. There is also no race condition because even though
+	other processes are reading those elements, I join the threads before moving on to the next stage so that
+	the next stage does not prematurely read from the previous stage. 
+
+2. I will prove that this algorithm works by induction. 'k' is usually used in proof by induction, but I need 
+	to reference that, so what is usually 'k' in induction, is now 'K'. The base case of this algorithm is 
+	that there is only one element in the array. k is log2(size), and since size=1 this for loop will not 
+	execute and the program returns the single element which is the solution to the prefix sum of one element. 
+	Now that we know the algorithm works for the base case, we must prove that the algorithm works for K+1. 
+	Since K+1 is the sum of K and K+1 and we just proved that K is correct, this proves that the algorithm
+	solves for the prefix sum. 
+
+3. This would not be possible because it would quickly mess up the summation. Using the example in the program 
+	description of 1, 5, 3, and 6, would yield x[1]+x[1-2^1-1] = 5+1 = 6 then you would get 6 + x[2-1] = 11 which is incorrect
+
+4. I would create an array that would tell when a thread was done with it's job. I would also have a
+	counter for when all threads had finished for that stage, before it could move on.  Then for each thread,
+	it would need to wait for the specific thread to finish before it could start it's job. This would
+	allow for less creation and joining of threads, but more waiting for each thread. 
