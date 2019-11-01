@@ -10,7 +10,7 @@ OBJ_FILE = thread.o thread-main.o
 EXE_FILE = prog3 
 
 ${EXE_FILE}: ${OBJ_FILE}
-	${CC} ${FLAGS}  -o ${EXE_FILE}  ${OBJ_FILE} ${TMLIB} -lpthread
+	${CC} ${FLAGS}  -o ${EXE_FILE}  ${OBJ_FILE} ${TMLIB_NV} -lpthread
 
 thread.o: thread.cpp
 	${CC} ${DFLAGS} ${IFLAGS} ${CFLAGS} -c thread.cpp
